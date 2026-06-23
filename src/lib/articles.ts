@@ -34,6 +34,8 @@ export interface ArticleFrontmatter {
   ogImage?: string;
   tags?: string[];
   featured?: boolean;
+  /** Page pilier SEO (dossier de fond, tête de silo). */
+  pillar?: boolean;
   faq?: FaqItem[];
 }
 
@@ -63,6 +65,7 @@ export interface ArticleSummary {
   authorKey: string;
   readingMinutes: number;
   featured: boolean;
+  pillar: boolean;
   tags: string[];
 }
 
@@ -113,6 +116,7 @@ function coerceFrontmatter(data: Record<string, unknown>): ArticleFrontmatter {
     ogImage: fm.ogImage ? String(fm.ogImage) : undefined,
     tags: Array.isArray(fm.tags) ? fm.tags.map(String) : [],
     featured: Boolean(fm.featured),
+    pillar: Boolean(fm.pillar),
     faq: Array.isArray(fm.faq)
       ? (fm.faq as FaqItem[]).map((f) => ({
           question: String(f.question),
@@ -184,6 +188,7 @@ function toSummary(a: Article): ArticleSummary {
     authorKey: a.author.key,
     readingMinutes: a.readingMinutes,
     featured: Boolean(a.frontmatter.featured),
+    pillar: Boolean(a.frontmatter.pillar),
     tags: a.frontmatter.tags ?? [],
   };
 }
@@ -196,30 +201,81 @@ export function getArticleBySlug(slug: string): Article | undefined {
   return getAllArticles().find((a) => a.slug === slug);
 }
 
-export function getArticlesByCategory(category: CategorySlug): ArticleSummary[] {
-  return getAllArticleSummaries().filter((a) => a.category === category);
+/**
+ * Articles d'une catégorie. Les pages piliers sont exclues par défaut
+ * (elles sont mises en avant séparément), mais conservées dans le sitemap
+ * et la recherche via getAllArticles().
+ */
+export function getArticlesByCategory(
+  category: CategorySlug,
+  { includePillars = false } = {},
+): ArticleSummary[] {
+  return getAllArticleSummaries().filter(
+    (a) => a.category === category && (includePillars || !a.pillar),
+  );
 }
 
 export function getLatestArticles(limit = 6): ArticleSummary[] {
-  return getAllArticleSummaries().slice(0, limit);
+  return getAllArticleSummaries()
+    .filter((a) => !a.pillar)
+    .slice(0, limit);
 }
 
 export function getFeaturedArticles(limit = 3): ArticleSummary[] {
-  const featured = getAllArticleSummaries().filter((a) => a.featured);
-  const list = featured.length > 0 ? featured : getAllArticleSummaries();
+  const featured = getAllArticleSummaries().filter(
+    (a) => a.featured && !a.pillar,
+  );
+  const list =
+    featured.length > 0
+      ? featured
+      : getAllArticleSummaries().filter((a) => !a.pillar);
   return list.slice(0, limit);
 }
 
+/** Toutes les pages piliers (dossiers de fond), les plus récentes d'abord. */
+export function getPillars(limit?: number): ArticleSummary[] {
+  const pillars = getAllArticleSummaries().filter((a) => a.pillar);
+  return typeof limit === "number" ? pillars.slice(0, limit) : pillars;
+}
+
+/** Le pilier d'une catégorie (le plus récent s'il y en a plusieurs). */
+export function getPillarForCategory(
+  category: CategorySlug,
+): ArticleSummary | undefined {
+  return getAllArticleSummaries().find((a) => a.pillar && a.category === category);
+}
+
+/** Résout une liste de slugs en résumés d'articles (ordre préservé). */
+export function getSummariesBySlugs(slugs: string[]): ArticleSummary[] {
+  const all = getAllArticleSummaries();
+  return slugs
+    .map((slug) => all.find((a) => a.slug === slug))
+    .filter((a): a is ArticleSummary => Boolean(a));
+}
+
 /**
- * Articles liés : même catégorie en priorité, complétés par les plus récents.
+ * Articles liés : on privilégie d'abord les articles du même silo,
+ * puis la même catégorie, puis les plus récents — afin de renforcer
+ * la cohérence thématique et la circulation du maillage interne.
  */
-export function getRelatedArticles(article: Article, limit = 3): ArticleSummary[] {
-  const all = getAllArticleSummaries().filter((a) => a.slug !== article.slug);
-  const sameCategory = all.filter(
-    (a) => a.category === article.frontmatter.category,
+export function getRelatedArticles(
+  article: Article,
+  limit = 3,
+  preferredSlugs: string[] = [],
+): ArticleSummary[] {
+  const all = getAllArticleSummaries().filter(
+    (a) => a.slug !== article.slug && !a.pillar,
   );
-  const others = all.filter((a) => a.category !== article.frontmatter.category);
-  return [...sameCategory, ...others].slice(0, limit);
+  const ordered: ArticleSummary[] = [];
+  const pushUnique = (items: ArticleSummary[]) => {
+    for (const it of items) {
+      if (!ordered.some((o) => o.slug === it.slug)) ordered.push(it);
+    }
+  };
+  pushUnique(all.filter((a) => preferredSlugs.includes(a.slug)));
+  pushUnique(all.filter((a) => a.category === article.frontmatter.category));
+  pushUnique(all);
+  return ordered.slice(0, limit);
 }
 
 export function getAllSlugs(): string[] {

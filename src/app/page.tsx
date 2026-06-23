@@ -99,10 +99,10 @@ export default function HomePage() {
       <section className="container-editorial py-16 sm:py-20">
         <SectionHeading
           eyebrow="Explorer"
-          title="Cinq rubriques pour votre logement"
-          description="Du quotidien de la maison aux grands chantiers, en passant par le jardin, l'énergie et la décoration."
+          title="Six rubriques pour votre logement"
+          description="Du quotidien de la maison aux grands chantiers, en passant par le jardin, l'énergie, la décoration et les espaces extérieurs."
         />
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-5">
+        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-6">
           {categories.map((category) => (
             <CategoryCard
               key={category.slug}
@@ -178,8 +178,8 @@ export default function HomePage() {
           </div>
           <dl className="grid grid-cols-3 gap-4 text-center">
             {[
-              { n: "5", l: "rubriques" },
-              { n: "20+", l: "guides publiés" },
+              { n: "6", l: "rubriques" },
+              { n: "30+", l: "guides publiés" },
               { n: "100%", l: "indépendant" },
             ].map((stat) => (
               <div

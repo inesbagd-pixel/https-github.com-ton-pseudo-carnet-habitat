@@ -9,7 +9,7 @@ export const siteConfig = {
   // L'URL de production. À surcharger via la variable d'environnement
   // NEXT_PUBLIC_SITE_URL lors du déploiement (Vercel).
   url: process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-    "https://www.carnethabitat.fr",
+    "https://carnethabitat.fr",
   locale: "fr_FR",
   lang: "fr",
   description:

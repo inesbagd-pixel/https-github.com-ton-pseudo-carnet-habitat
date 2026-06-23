@@ -9,7 +9,13 @@ import {
   getAllArticles,
   getArticleBySlug,
   getRelatedArticles,
+  getSummariesBySlugs,
 } from "@/lib/articles";
+import {
+  getSiloByPillar,
+  getPrimaryPillarSlug,
+  getSiloSiblingSlugs,
+} from "@/lib/silos";
 import { getCategory } from "@/lib/categories";
 import { formatDate, formatReadingTime } from "@/lib/format";
 import {
@@ -24,6 +30,7 @@ import { TableOfContents } from "@/components/article/TableOfContents";
 import { Faq } from "@/components/article/Faq";
 import { Newsletter } from "@/components/Newsletter";
 import { ArticleCard } from "@/components/ArticleCard";
+import { PillarBanner, SiloNav } from "@/components/article/SiloLinks";
 import { mdxComponents } from "@/components/mdx/MdxComponents";
 import { ClockIcon } from "@/components/icons";
 

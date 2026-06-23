@@ -8,7 +8,8 @@ export type CategorySlug =
   | "travaux"
   | "jardin"
   | "energie"
-  | "decoration";
+  | "decoration"
+  | "exterieurs";
 
 export interface Category {
   slug: CategorySlug;
@@ -92,6 +93,19 @@ export const categories: Category[] = [
     image:
       "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1600&q=70",
     accent: "terracotta",
+  },
+  {
+    slug: "exterieurs",
+    name: "Extérieurs",
+    title: "Extérieurs : terrasses, pergolas, clôtures et aménagement",
+    blurb: "Concevoir et aménager des espaces extérieurs durables.",
+    intro:
+      "Prolongement naturel de la maison, les espaces extérieurs méritent autant d'attention que l'intérieur. La rubrique Extérieurs réunit nos guides pour concevoir, installer et entretenir terrasses, pergolas, clôtures, portails, abris de jardin, carports et allées. Des conseils concrets sur les matériaux, les budgets et la pose, pour aménager un extérieur cohérent, fonctionnel et durable, qu'il s'agisse d'un grand jardin ou d'une petite cour.",
+    description:
+      "Aménagement extérieur : guides sur les terrasses, pergolas, clôtures, portails, abris de jardin, carports et allées — matériaux, budget et installation.",
+    image:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=70",
+    accent: "sage",
   },
 ];
 

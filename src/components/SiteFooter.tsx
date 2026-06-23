@@ -96,7 +96,8 @@ export function SiteFooter() {
             © {year} {siteConfig.name}. Tous droits réservés.
           </p>
           <p>
-            Magazine éditorial indépendant — contenus à visée informative.
+            Magazine éditorial indépendant — conseils habitat fiables, à visée
+            informative.
           </p>
         </div>
       </div>

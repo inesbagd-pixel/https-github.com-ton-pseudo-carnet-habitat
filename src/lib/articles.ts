@@ -278,6 +278,10 @@ export function getRelatedArticles(
   return ordered.slice(0, limit);
 }
 
+export function getArticlesByAuthor(authorKey: string): ArticleSummary[] {
+  return getAllArticleSummaries().filter((a) => a.authorKey === authorKey);
+}
+
 export function getAllSlugs(): string[] {
   return getAllArticles().map((a) => a.slug);
 }

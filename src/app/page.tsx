@@ -5,6 +5,7 @@ import {
   getLatestArticles,
   getFeaturedArticles,
   getArticlesByCategory,
+  getPillars,
 } from "@/lib/articles";
 import { siteConfig } from "@/lib/site";
 import { formatDate, formatReadingTime } from "@/lib/format";
@@ -20,7 +21,8 @@ export default function HomePage() {
   const latest = getLatestArticles(7);
   // On évite de répéter l'article du hero dans la grille « Derniers articles ».
   const latestGrid = latest.filter((a) => a.slug !== hero?.slug).slice(0, 6);
-  const guides = featured.slice(1, 4);
+  // Pages piliers mises en avant comme « guides de référence ».
+  const guides = getPillars(6);
 
   const categoryCounts = Object.fromEntries(
     categories.map((c) => [c.slug, getArticlesByCategory(c.slug).length]),
@@ -136,8 +138,8 @@ export default function HomePage() {
           <div className="container-editorial py-16 sm:py-20">
             <SectionHeading
               eyebrow="À lire absolument"
-              title="Guides populaires"
-              description="Les dossiers de référence que nos lecteurs consultent le plus."
+              title="Nos guides complets"
+              description="Des dossiers de référence, longs et documentés, pour aller au fond de chaque sujet."
             />
             <div className="mt-10 grid gap-10 lg:grid-cols-3">
               {guides.map((article) => (

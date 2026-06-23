@@ -30,11 +30,18 @@ export function buildMetadata({
   noIndex?: boolean;
 }): Metadata {
   const canonical = absoluteUrl(path);
+  // Si aucune image n'est fournie, on laisse Next utiliser l'image OG générée
+  // par convention de fichier (opengraph-image.tsx) : image de marque par
+  // défaut, ou image brandée par article lorsqu'elle existe.
   const image = ogImage
     ? ogImage.startsWith("http")
       ? ogImage
       : absoluteUrl(ogImage)
-    : absoluteUrl(siteConfig.defaultOgImage);
+    : undefined;
+  const ogImages = image
+    ? { images: [{ url: image, width: 1200, height: 630, alt: title }] }
+    : {};
+  const twitterImages = image ? { images: [image] } : {};
 
   return {
     title,
@@ -56,7 +63,7 @@ export function buildMetadata({
       siteName: siteConfig.name,
       locale: siteConfig.locale,
       type,
-      images: [{ url: image, width: 1200, height: 630, alt: title }],
+      ...ogImages,
       ...(publishedTime ? { publishedTime } : {}),
       ...(modifiedTime ? { modifiedTime } : {}),
       ...(authors ? { authors } : {}),
@@ -65,7 +72,7 @@ export function buildMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [image],
+      ...twitterImages,
     },
   };
 }
@@ -176,6 +183,24 @@ export function faqSchema(faq: { question: string; answer: string }[]) {
         text: item.answer,
       },
     })),
+  };
+}
+
+export function personSchema(author: {
+  key: string;
+  name: string;
+  role: string;
+  bio: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": absoluteUrl(`/equipe#${author.key}`),
+    name: author.name,
+    jobTitle: author.role,
+    description: author.bio,
+    worksFor: { "@id": absoluteUrl("/#organization") },
+    url: absoluteUrl("/equipe"),
   };
 }
 

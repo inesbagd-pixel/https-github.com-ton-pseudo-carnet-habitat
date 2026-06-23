@@ -20,6 +20,8 @@ export const mainNav: NavItem[] = [
 /** Liens secondaires (footer — institutionnel). */
 export const footerNav: NavItem[] = [
   { label: "À propos", href: "/a-propos" },
+  { label: "L'équipe", href: "/equipe" },
+  { label: "Charte éditoriale", href: "/charte-editoriale" },
   { label: "Contact", href: "/contact" },
   { label: "Mentions légales", href: "/mentions-legales" },
   { label: "Politique de confidentialité", href: "/politique-de-confidentialite" },

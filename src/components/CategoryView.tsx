@@ -1,12 +1,15 @@
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Category } from "@/lib/categories";
-import { getArticlesByCategory } from "@/lib/articles";
+import { getArticlesByCategory, getPillarForCategory } from "@/lib/articles";
 import { siteConfig } from "@/lib/site";
+import { formatReadingTime } from "@/lib/format";
 import { ArticleCard } from "@/components/ArticleCard";
 import { Pagination } from "@/components/Pagination";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Newsletter } from "@/components/Newsletter";
+import { ArrowRightIcon } from "@/components/icons";
 
 export function CategoryView({
   category,
@@ -16,6 +19,8 @@ export function CategoryView({
   page: number;
 }) {
   const all = getArticlesByCategory(category.slug);
+  // Page pilier de la rubrique, mise en avant uniquement sur la 1re page.
+  const pillar = getPillarForCategory(category.slug);
   const perPage = siteConfig.postsPerPage;
   const totalPages = Math.max(1, Math.ceil(all.length / perPage));
 
@@ -65,6 +70,41 @@ export function CategoryView({
           </div>
         </div>
       </header>
+
+      {/* Dossier pilier mis en avant (1re page uniquement) */}
+      {pillar && page === 1 && (
+        <section className="container-editorial pt-14">
+          <Link
+            href={`/${pillar.category}/${pillar.slug}`}
+            className="group grid items-stretch overflow-hidden rounded-2xl border border-line bg-bg-muted sm:grid-cols-[1.1fr_1fr]"
+          >
+            <div className="relative aspect-[16/10] sm:aspect-auto">
+              <Image
+                src={pillar.cover}
+                alt={pillar.coverAlt}
+                fill
+                sizes="(max-width: 640px) 100vw, 50vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+            </div>
+            <div className="flex flex-col justify-center p-7 sm:p-9">
+              <span className="inline-flex w-fit items-center rounded-full bg-sage-soft px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-sage-dark">
+                Dossier complet
+              </span>
+              <h2 className="mt-3 font-serif text-2xl font-semibold leading-snug text-ink sm:text-[1.7rem]">
+                {pillar.title}
+              </h2>
+              <p className="mt-2 line-clamp-2 text-[0.95rem] leading-relaxed text-ink-soft">
+                {pillar.excerpt}
+              </p>
+              <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-sage-dark">
+                Lire le guide · {formatReadingTime(pillar.readingMinutes)}
+                <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </div>
+          </Link>
+        </section>
+      )}
 
       {/* Liste d'articles */}
       <section className="container-editorial py-14">

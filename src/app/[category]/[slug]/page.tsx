@@ -59,7 +59,9 @@ export async function generateMetadata({
     title: frontmatter.title,
     description: frontmatter.description,
     path: `/${category}/${slug}`,
-    ogImage: article.ogImage,
+    // ogImage non défini → image OG brandée générée par article (opengraph-image.tsx).
+    // Une valeur `ogImage` dans le frontmatter reste prioritaire.
+    ogImage: frontmatter.ogImage,
     type: "article",
     publishedTime: frontmatter.date,
     modifiedTime: frontmatter.updated || frontmatter.date,
@@ -77,7 +79,18 @@ export default async function ArticlePage({ params }: PageProps) {
 
   const { frontmatter, author, toc, readingMinutes } = article;
   const category = getCategory(frontmatter.category)!;
-  const related = getRelatedArticles(article, 3);
+  const isPillar = Boolean(frontmatter.pillar);
+
+  // Maillage interne (silos).
+  const siloCluster = isPillar
+    ? getSummariesBySlugs(getSiloByPillar(slug)?.articles ?? [])
+    : [];
+  const primaryPillarSlug = isPillar ? undefined : getPrimaryPillarSlug(slug);
+  const pillarSummary = primaryPillarSlug
+    ? getSummariesBySlugs([primaryPillarSlug])[0]
+    : undefined;
+
+  const related = getRelatedArticles(article, 3, getSiloSiblingSlugs(slug));
 
   const crumbs = [
     { name: "Accueil", path: "/" },
@@ -101,12 +114,19 @@ export default async function ArticlePage({ params }: PageProps) {
           <div className="container-editorial py-8 sm:py-12">
             <Breadcrumbs items={crumbs} />
             <div className="mx-auto mt-6 max-w-3xl">
-              <Link
-                href={`/${category.slug}`}
-                className="eyebrow transition-colors hover:text-ink"
-              >
-                {category.name}
-              </Link>
+              <span className="flex flex-wrap items-center gap-2">
+                <Link
+                  href={`/${category.slug}`}
+                  className="eyebrow transition-colors hover:text-ink"
+                >
+                  {category.name}
+                </Link>
+                {isPillar && (
+                  <span className="rounded-full bg-sage-soft px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-sage-dark">
+                    Dossier complet
+                  </span>
+                )}
+              </span>
               <h1 className="mt-3 font-serif text-3xl font-semibold leading-[1.12] tracking-tight text-ink sm:text-4xl lg:text-[2.9rem]">
                 {frontmatter.title}
               </h1>
@@ -169,6 +189,9 @@ export default async function ArticlePage({ params }: PageProps) {
             </aside>
 
             <div className="min-w-0 max-w-prose">
+              {/* Maillage interne : renvoi vers le dossier pilier */}
+              {pillarSummary && <PillarBanner pillar={pillarSummary} />}
+
               <div className="prose-editorial">
                 <MDXRemote
                   source={article.content}
@@ -181,6 +204,9 @@ export default async function ArticlePage({ params }: PageProps) {
                   }}
                 />
               </div>
+
+              {/* Page pilier : liste des articles du silo */}
+              {isPillar && <SiloNav articles={siloCluster} />}
 
               {/* FAQ */}
               <Faq items={frontmatter.faq ?? []} />

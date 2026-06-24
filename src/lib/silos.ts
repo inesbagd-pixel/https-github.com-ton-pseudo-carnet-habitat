@@ -25,10 +25,19 @@ export const silos: Silo[] = [
   {
     pillar: "guide-isolation-maison",
     category: "travaux",
+    // Parcours de lecture : diagnostic → combles → murs → fenêtres →
+    // planchers → matériaux → ponts thermiques → ventilation.
     articles: [
       "signes-mauvaise-isolation",
       "isoler-combles-perdus",
-      "comprendre-dpe-logement",
+      "isoler-combles-amenages",
+      "isolation-murs-ite-ou-iti",
+      "isolation-fenetres-double-vitrage",
+      "isoler-plancher-bas",
+      "choisir-isolant-thermique",
+      "isolants-biosources",
+      "traiter-ponts-thermiques",
+      "isolation-ventilation-humidite",
     ],
   },
   {

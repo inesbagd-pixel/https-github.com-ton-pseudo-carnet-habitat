@@ -52,7 +52,7 @@ export const categories: Category[] = [
     description:
       "Guides de rénovation et de travaux : toiture, isolation, diagnostic, second œuvre et conseils pour bien préparer et suivre votre chantier.",
     image:
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=70",
+      "https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=1600&q=70",
     accent: "terracotta",
   },
   {

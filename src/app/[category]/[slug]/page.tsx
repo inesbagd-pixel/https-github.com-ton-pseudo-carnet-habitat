@@ -30,6 +30,7 @@ import { TableOfContents } from "@/components/article/TableOfContents";
 import { Faq } from "@/components/article/Faq";
 import { Newsletter } from "@/components/Newsletter";
 import { ArticleCard } from "@/components/ArticleCard";
+import { AuthorAvatar } from "@/components/AuthorAvatar";
 import { PillarBanner, SiloNav } from "@/components/article/SiloLinks";
 import { mdxComponents } from "@/components/mdx/MdxComponents";
 import { ClockIcon } from "@/components/icons";
@@ -136,13 +137,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
               <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-ink-faint">
                 <div className="flex items-center gap-2.5">
-                  <Image
-                    src={author.avatar}
-                    alt={author.name}
-                    width={36}
-                    height={36}
-                    className="h-9 w-9 rounded-full object-cover"
-                  />
+                  <AuthorAvatar name={author.name} className="h-9 w-9 text-xs" />
                   <span>
                     <span className="font-medium text-ink-soft">
                       {author.name}
@@ -227,13 +222,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
               {/* Bio auteur */}
               <div className="mt-12 flex items-start gap-4 rounded-xl border border-line bg-bg-muted p-6">
-                <Image
-                  src={author.avatar}
-                  alt={author.name}
-                  width={56}
-                  height={56}
-                  className="h-14 w-14 shrink-0 rounded-full object-cover"
-                />
+                <AuthorAvatar name={author.name} className="h-14 w-14 text-lg" />
                 <div>
                   <p className="eyebrow text-[0.65rem]">Rédigé par</p>
                   <p className="mt-1 font-serif text-lg font-semibold text-ink">

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site";
 import { authors } from "@/lib/authors";
@@ -7,6 +6,7 @@ import { buildMetadata, breadcrumbSchema } from "@/lib/seo";
 import { PageHeader } from "@/components/PageHeader";
 import { JsonLd } from "@/components/JsonLd";
 import { Newsletter } from "@/components/Newsletter";
+import { AuthorAvatar } from "@/components/AuthorAvatar";
 import { ArrowRightIcon } from "@/components/icons";
 
 export const metadata: Metadata = buildMetadata({
@@ -107,13 +107,7 @@ export default function AboutPage() {
           <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {Object.values(authors).map((author) => (
               <div key={author.key} className="flex items-start gap-4">
-                <Image
-                  src={author.avatar}
-                  alt={author.name}
-                  width={64}
-                  height={64}
-                  className="h-16 w-16 shrink-0 rounded-full object-cover"
-                />
+                <AuthorAvatar name={author.name} className="h-16 w-16 text-xl" />
                 <div>
                   <p className="font-serif text-lg font-semibold text-ink">
                     {author.name}

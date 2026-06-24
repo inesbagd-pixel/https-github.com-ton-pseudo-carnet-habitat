@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { authors } from "@/lib/authors";
+import { AuthorAvatar } from "@/components/AuthorAvatar";
 import { getArticlesByAuthor } from "@/lib/articles";
 import { formatDate } from "@/lib/format";
 import {
@@ -55,12 +55,9 @@ export default function EquipePage() {
                 className="scroll-mt-24 border-b border-line pb-16 last:border-0 last:pb-0"
               >
                 <div className="grid gap-6 sm:grid-cols-[auto_1fr] sm:gap-8">
-                  <Image
-                    src={author.avatar}
-                    alt={author.name}
-                    width={120}
-                    height={120}
-                    className="h-28 w-28 rounded-full object-cover"
+                  <AuthorAvatar
+                    name={author.name}
+                    className="h-28 w-28 text-3xl"
                   />
                   <div>
                     <h2 className="font-serif text-2xl font-semibold text-ink">

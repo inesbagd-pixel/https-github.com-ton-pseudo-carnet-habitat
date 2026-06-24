@@ -41,6 +41,25 @@ export const silos: Silo[] = [
     ],
   },
   {
+    pillar: "guide-ventilation-maison",
+    category: "maison",
+    // Cluster « maison saine » : ventilation → hygrométrie → humidité →
+    // condensation → moisissures, connecté au silo Isolation.
+    articles: [
+      "vmc-simple-flux-double-flux",
+      "ventilation-naturelle-aeration",
+      "installer-vmc-renovation",
+      "taux-humidite-ideal-maison",
+      "traiter-humidite-maison",
+      "condensation-fenetres-murs",
+      "eliminer-moisissures-murs",
+      "remontees-capillaires-traitement",
+      "ameliorer-qualite-air-interieur",
+      "comment-reduire-humidite-cave",
+      "isolation-ventilation-humidite",
+    ],
+  },
+  {
     pillar: "guide-renovation-maison",
     category: "travaux",
     articles: [

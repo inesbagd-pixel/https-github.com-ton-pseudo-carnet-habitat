@@ -17,7 +17,7 @@ import {
   getSiloSiblingSlugs,
 } from "@/lib/silos";
 import { getCategory } from "@/lib/categories";
-import { formatDate, formatReadingTime } from "@/lib/format";
+import { formatDate } from "@/lib/format";
 import {
   buildMetadata,
   articleSchema,
@@ -33,7 +33,6 @@ import { ArticleCard } from "@/components/ArticleCard";
 import { AuthorAvatar } from "@/components/AuthorAvatar";
 import { PillarBanner, SiloNav } from "@/components/article/SiloLinks";
 import { mdxComponents } from "@/components/mdx/MdxComponents";
-import { ClockIcon } from "@/components/icons";
 
 interface PageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -78,7 +77,7 @@ export default async function ArticlePage({ params }: PageProps) {
     notFound();
   }
 
-  const { frontmatter, author, toc, readingMinutes } = article;
+  const { frontmatter, author, toc } = article;
   const category = getCategory(frontmatter.category)!;
   const isPillar = Boolean(frontmatter.pillar);
 
@@ -149,10 +148,6 @@ export default async function ArticlePage({ params }: PageProps) {
                 <time dateTime={frontmatter.date}>
                   {formatDate(frontmatter.date)}
                 </time>
-                <span className="inline-flex items-center gap-1.5">
-                  <ClockIcon className="h-4 w-4" />
-                  {formatReadingTime(readingMinutes)}
-                </span>
               </div>
             </div>
           </div>

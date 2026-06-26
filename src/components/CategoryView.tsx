@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import type { Category } from "@/lib/categories";
 import { getArticlesByCategory, getPillarForCategory } from "@/lib/articles";
 import { siteConfig } from "@/lib/site";
-import { formatReadingTime } from "@/lib/format";
 import { ArticleCard } from "@/components/ArticleCard";
 import { Pagination } from "@/components/Pagination";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -98,7 +97,7 @@ export function CategoryView({
                 {pillar.excerpt}
               </p>
               <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-sage-dark">
-                Lire le guide · {formatReadingTime(pillar.readingMinutes)}
+                Lire le guide
                 <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </span>
             </div>

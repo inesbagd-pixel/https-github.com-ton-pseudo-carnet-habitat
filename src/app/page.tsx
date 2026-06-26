@@ -8,7 +8,7 @@ import {
   getPillars,
 } from "@/lib/articles";
 import { siteConfig } from "@/lib/site";
-import { formatDate, formatReadingTime } from "@/lib/format";
+import { formatDate } from "@/lib/format";
 import { ArticleCard } from "@/components/ArticleCard";
 import { CategoryCard } from "@/components/CategoryCard";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -86,8 +86,7 @@ export default function HomePage() {
                       {hero.title}
                     </h2>
                     <p className="mt-2 text-sm text-bg/85">
-                      {formatDate(hero.date)} ·{" "}
-                      {formatReadingTime(hero.readingMinutes)}
+                      {formatDate(hero.date)}
                     </p>
                   </div>
                 </Link>

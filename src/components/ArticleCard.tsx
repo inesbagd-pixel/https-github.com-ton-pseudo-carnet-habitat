@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { ArticleSummary } from "@/lib/articles";
 import { categoryMap, getCategoryTone } from "@/lib/categories";
-import { formatDate, formatReadingTime } from "@/lib/format";
+import { formatDate } from "@/lib/format";
 
 interface Props {
   article: ArticleSummary;
@@ -43,9 +43,6 @@ export function ArticleCard({
             <h3 className="mt-1 font-serif text-[1.02rem] font-medium leading-snug text-ink">
               <span className="link-underline">{article.title}</span>
             </h3>
-            <p className="mt-1 text-xs text-ink-faint">
-              {formatReadingTime(article.readingMinutes)}
-            </p>
           </div>
         </Link>
       </article>
@@ -86,8 +83,7 @@ export function ArticleCard({
             {article.excerpt}
           </p>
           <p className="mt-3 text-xs text-ink-faint">
-            {article.authorName} · {formatDate(article.date)} ·{" "}
-            {formatReadingTime(article.readingMinutes)}
+            {article.authorName} · {formatDate(article.date)}
           </p>
         </div>
       </article>
@@ -127,11 +123,8 @@ export function ArticleCard({
           />
         </Link>
       </div>
-      <div className="flex flex-1 flex-col px-5 pb-5 pt-4">
-        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.13em] text-ink-faint">
-          {formatReadingTime(article.readingMinutes)}
-        </p>
-        <h3 className="mt-2 font-serif text-xl font-medium leading-snug text-ink">
+      <div className="flex flex-1 flex-col px-5 pb-5 pt-5">
+        <h3 className="font-serif text-xl font-medium leading-snug text-ink">
           <Link href={href} className="link-underline">
             {article.title}
           </Link>

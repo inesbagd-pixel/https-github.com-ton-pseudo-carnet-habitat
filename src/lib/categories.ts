@@ -124,3 +124,27 @@ export function getCategory(slug: string): Category | undefined {
 export function isCategorySlug(slug: string): slug is CategorySlug {
   return slug in categoryMap;
 }
+
+/**
+ * Couleurs par rubrique (« Le Carnet »).
+ * `ink` = texte/onglet/filet ; `soft` = fond de chip/visuel.
+ * Teintes sourdes et harmonisées : elles structurent le média sans casser
+ * l'unité, et sont toujours doublées du libellé (accessibilité).
+ */
+export interface CategoryTone {
+  ink: string;
+  soft: string;
+}
+
+export const categoryTone: Record<CategorySlug, CategoryTone> = {
+  maison: { ink: "#2A3B57", soft: "#E2E5EC" },
+  travaux: { ink: "#A9542F", soft: "#F4E3D7" },
+  jardin: { ink: "#5C6B30", soft: "#EAEEDA" },
+  energie: { ink: "#8A6014", soft: "#F1E7CC" },
+  decoration: { ink: "#9A5747", soft: "#F1E3DC" },
+  exterieurs: { ink: "#46615E", soft: "#E2EAE8" },
+};
+
+export function getCategoryTone(slug: CategorySlug): CategoryTone {
+  return categoryTone[slug];
+}

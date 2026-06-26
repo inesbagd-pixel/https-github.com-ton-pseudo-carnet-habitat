@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getArticleBySlug } from "@/lib/articles";
-import { getCategory } from "@/lib/categories";
+import { getCategory, getCategoryTone } from "@/lib/categories";
 import { siteConfig } from "@/lib/site";
 
 export const alt = "Carnet Habitat";
@@ -20,6 +20,7 @@ export default async function ArticleOgImage({ params }: Props) {
   const article = getArticleBySlug(slug);
   const title = article?.frontmatter.title ?? siteConfig.name;
   const category = article ? getCategory(article.frontmatter.category) : undefined;
+  const accent = article ? getCategoryTone(article.frontmatter.category).ink : "#22304C";
   const isPillar = Boolean(article?.frontmatter.pillar);
   const eyebrow = isPillar
     ? `Dossier · ${category?.name ?? ""}`
@@ -34,7 +35,7 @@ export default async function ArticleOgImage({ params }: Props) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#FAFAF8",
+          backgroundColor: "#FBF8F2",
           padding: "70px",
           fontFamily: "Georgia, serif",
         }}
@@ -48,23 +49,12 @@ export default async function ArticleOgImage({ params }: Props) {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "52px",
-                height: "52px",
-                borderRadius: "13px",
-                backgroundColor: "#7A8F7A",
-                color: "#FAFAF8",
-                fontSize: "28px",
-                fontWeight: 700,
-              }}
-            >
-              C
-            </div>
-            <div style={{ fontSize: "26px", color: "#222222", fontWeight: 600 }}>
+            <svg width="52" height="52" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="30" fill="#22304C" />
+              <path d="M25 19h14v27l-7-5.5-7 5.5z" fill="#FBF8F2" />
+              <rect x="25" y="19" width="14" height="5" fill="#C39A3A" />
+            </svg>
+            <div style={{ fontSize: "26px", color: "#1F1B16", fontWeight: 600 }}>
               Carnet Habitat
             </div>
           </div>
@@ -73,7 +63,7 @@ export default async function ArticleOgImage({ params }: Props) {
               fontSize: "20px",
               letterSpacing: "4px",
               textTransform: "uppercase",
-              color: "#C87B5A",
+              color: accent,
               fontFamily: "Helvetica, Arial, sans-serif",
             }}
           >
@@ -87,7 +77,7 @@ export default async function ArticleOgImage({ params }: Props) {
             display: "flex",
             fontSize: title.length > 70 ? "58px" : "70px",
             fontWeight: 700,
-            color: "#222222",
+            color: "#1F1B16",
             lineHeight: 1.1,
             maxWidth: "1000px",
           }}
@@ -101,14 +91,14 @@ export default async function ArticleOgImage({ params }: Props) {
             style={{
               width: "64px",
               height: "6px",
-              backgroundColor: "#7A8F7A",
+              backgroundColor: accent,
               borderRadius: "3px",
             }}
           />
           <div
             style={{
               fontSize: "22px",
-              color: "#4A4A46",
+              color: "#4A4438",
               fontFamily: "Helvetica, Arial, sans-serif",
             }}
           >

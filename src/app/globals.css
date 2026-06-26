@@ -5,21 +5,34 @@
 /*  Palette : éditorial premium, minimaliste, beaucoup d'espace blanc  */
 /* ------------------------------------------------------------------ */
 @theme {
-  /* Couleurs */
-  --color-bg: #fafaf8;
-  --color-bg-muted: #f3f3ee;
-  --color-ink: #222222;
-  --color-ink-soft: #4a4a46;
-  --color-ink-faint: #8a8a82;
-  --color-line: #e7e6df;
+  /* ----------------------------------------------------------------- */
+  /*  Identité « Le Carnet » — bleu nuit indigo + ocre doré + papier.   */
+  /*  NB rebrand : les tokens historiques `sage` portent désormais le    */
+  /*  BLEU de marque, `terracotta` la TERRE. Ajout de `gold` (ocre).     */
+  /* ----------------------------------------------------------------- */
 
-  --color-sage: #7a8f7a;
-  --color-sage-dark: #5f7360;
-  --color-sage-soft: #eaeee9;
+  /* Neutres chauds */
+  --color-bg: #fbf8f2;        /* papier crème */
+  --color-bg-muted: #f2ece0;  /* papier sourd */
+  --color-ink: #1f1b16;       /* encre */
+  --color-ink-soft: #4a4438;
+  --color-ink-faint: #6e675b; /* AA sur papier */
+  --color-line: #e5dfd2;
 
-  --color-terracotta: #c87b5a;
-  --color-terracotta-dark: #a9603f;
-  --color-terracotta-soft: #f6e7df;
+  /* Bleu nuit (marque) — alias `sage` */
+  --color-sage: #5e6c8a;      /* bleu clair / états */
+  --color-sage-dark: #22304c; /* bleu nuit — couleur primaire */
+  --color-sage-soft: #e2e5ec;
+
+  /* Terre (accent chaud) — alias `terracotta` */
+  --color-terracotta: #c2683f;
+  --color-terracotta-dark: #a9542f;
+  --color-terracotta-soft: #f4e3d7;
+
+  /* Ocre doré (signature, parcimonie) */
+  --color-gold: #c39a3a;
+  --color-gold-dark: #9a7a22;
+  --color-gold-soft: #f0e7cb;
 
   /* Typographie */
   --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;

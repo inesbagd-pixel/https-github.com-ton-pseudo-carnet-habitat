@@ -1,13 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { ArticleSummary } from "@/lib/articles";
-import { categoryMap } from "@/lib/categories";
+import { categoryMap, getCategoryTone } from "@/lib/categories";
 import { formatDate, formatReadingTime } from "@/lib/format";
 
 interface Props {
   article: ArticleSummary;
   priority?: boolean;
-  /** "default" : carte verticale. "horizontal" : image à gauche (listes). */
+  /** "default" : carte signature. "horizontal" : image à gauche. "compact" : liste. */
   variant?: "default" | "horizontal" | "compact";
 }
 
@@ -17,6 +17,7 @@ export function ArticleCard({
   variant = "default",
 }: Props) {
   const category = categoryMap[article.category];
+  const tone = getCategoryTone(article.category);
   const href = `/${article.category}/${article.slug}`;
 
   if (variant === "compact") {
@@ -33,7 +34,12 @@ export function ArticleCard({
             />
           </div>
           <div className="min-w-0">
-            <span className="eyebrow text-[0.65rem]">{category?.name}</span>
+            <span
+              className="text-[0.65rem] font-semibold uppercase tracking-[0.12em]"
+              style={{ color: tone.ink }}
+            >
+              {category?.name}
+            </span>
             <h3 className="mt-1 font-serif text-[1.02rem] font-medium leading-snug text-ink">
               <span className="link-underline">{article.title}</span>
             </h3>
@@ -65,7 +71,12 @@ export function ArticleCard({
           />
         </Link>
         <div>
-          <span className="eyebrow">{category?.name}</span>
+          <span
+            className="text-[0.7rem] font-semibold uppercase tracking-[0.14em]"
+            style={{ color: tone.ink }}
+          >
+            {category?.name}
+          </span>
           <h3 className="mt-2 font-serif text-xl font-medium leading-snug text-ink sm:text-2xl">
             <Link href={href} className="link-underline">
               {article.title}
@@ -83,37 +94,56 @@ export function ArticleCard({
     );
   }
 
+  /* ---- Carte signature « Carnet » : filet + onglet d'index + byline réglée ---- */
   return (
-    <article className="group flex h-full flex-col">
-      <Link
-        href={href}
-        className="relative block aspect-[16/10] overflow-hidden rounded-lg bg-bg-muted"
-        tabIndex={-1}
-        aria-hidden
-      >
-        <Image
-          src={article.cover}
-          alt={article.coverAlt}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          priority={priority}
+    <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-bg transition-colors hover:border-sage/50">
+      <div className="relative">
+        {/* filet supérieur de rubrique */}
+        <span
+          aria-hidden
+          className="absolute inset-x-0 top-0 z-10 h-1"
+          style={{ background: tone.ink }}
         />
-      </Link>
-      <div className="flex flex-1 flex-col pt-4">
-        <span className="eyebrow">{category?.name}</span>
+        {/* onglet d'index (rubrique) */}
+        <span
+          className="absolute left-4 top-1 z-10 rounded-b-md px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-white"
+          style={{ background: tone.ink }}
+        >
+          {category?.name}
+        </span>
+        <Link
+          href={href}
+          className="relative block aspect-[16/10] overflow-hidden bg-bg-muted"
+          tabIndex={-1}
+          aria-hidden
+        >
+          <Image
+            src={article.cover}
+            alt={article.coverAlt}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            priority={priority}
+          />
+        </Link>
+      </div>
+      <div className="flex flex-1 flex-col px-5 pb-5 pt-4">
+        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.13em] text-ink-faint">
+          {formatReadingTime(article.readingMinutes)}
+        </p>
         <h3 className="mt-2 font-serif text-xl font-medium leading-snug text-ink">
           <Link href={href} className="link-underline">
             {article.title}
           </Link>
         </h3>
-        <p className="mt-2 line-clamp-3 text-[0.95rem] leading-relaxed text-ink-soft">
+        <p className="mt-2 line-clamp-2 text-[0.93rem] leading-relaxed text-ink-soft">
           {article.excerpt}
         </p>
-        <p className="mt-4 text-xs text-ink-faint">
-          {article.authorName} · {formatDate(article.date)} ·{" "}
-          {formatReadingTime(article.readingMinutes)}
-        </p>
+        <div className="mt-auto border-t border-line pt-3">
+          <p className="text-xs text-ink-faint">
+            {article.authorName} · {formatDate(article.date)}
+          </p>
+        </div>
       </div>
     </article>
   );

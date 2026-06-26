@@ -224,6 +224,67 @@
   font-size: 0.9em;
 }
 
+/* ------------------------------------------------------------------ */
+/*  Impression / export PDF                                            */
+/*  Seul le rapport généré est imprimé : on masque le chrome du site    */
+/*  (.no-print) et on conserve les aplats de couleur pour le rendu.     */
+/* ------------------------------------------------------------------ */
+@page {
+  margin: 14mm;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  html {
+    scroll-padding-top: 0;
+    font-size: 14px;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  main {
+    padding: 0 !important;
+  }
+
+  .container-editorial {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  /* Le rapport occupe toute la largeur utile de la page imprimée. */
+  .container-editorial .mx-auto {
+    max-width: none !important;
+  }
+
+  /* Réduit les grands espacements d'écran pour densifier le PDF. */
+  section.mt-10 {
+    margin-top: 1.4rem;
+  }
+
+  /* Évite de couper une section, une étape ou une carte au milieu d'une page. */
+  .break-inside-avoid {
+    break-inside: avoid;
+  }
+
+  /* Garde les titres avec le contenu qui suit. */
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
 /* Réduction des animations selon préférence utilisateur */
 @media (prefers-reduced-motion: reduce) {
   html {

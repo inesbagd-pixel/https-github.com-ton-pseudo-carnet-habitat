@@ -19,7 +19,7 @@ export function SiteFooter() {
   const year = 2026;
 
   return (
-    <footer className="mt-24 border-t border-line bg-bg-muted">
+    <footer className="no-print mt-24 border-t border-line bg-bg-muted">
       <div className="container-editorial py-14">
         <div className="grid gap-10 md:grid-cols-12">
           {/* Marque */}

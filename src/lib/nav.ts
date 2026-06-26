@@ -11,9 +11,10 @@ export const categoryNav: NavItem[] = categories.map((c) => ({
   href: `/${c.slug}`,
 }));
 
-/** Navigation principale (header) : catégories + À propos. */
+/** Navigation principale (header) : catégories + Outils + À propos. */
 export const mainNav: NavItem[] = [
   ...categoryNav,
+  { label: "Outils", href: "/outils" },
   { label: "À propos", href: "/a-propos" },
 ];
 

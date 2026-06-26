@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { type SearchRecord, searchRecords } from "@/lib/search-core";
+import { Portal } from "@/components/Portal";
 import { SearchIcon, CloseIcon } from "@/components/icons";
 
 interface Props {
@@ -45,6 +46,7 @@ export function SearchDialog({ index, open, onClose }: Props) {
   if (!open) return null;
 
   return (
+    <Portal>
     <div
       className="fixed inset-0 z-[90] flex items-start justify-center px-4 pt-[10vh]"
       role="dialog"
@@ -119,5 +121,6 @@ export function SearchDialog({ index, open, onClose }: Props) {
         </div>
       </div>
     </div>
+    </Portal>
   );
 }

@@ -4,8 +4,9 @@ import path from "node:path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
 import GithubSlugger from "github-slugger";
-import { type CategorySlug, isCategorySlug } from "./categories";
+import { type CategorySlug, isCategorySlug, getCategory } from "./categories";
 import { getAuthor, type Author } from "./authors";
+import type { GuideLink } from "./planner";
 
 const ARTICLES_DIR = path.join(process.cwd(), "content", "articles");
 
@@ -284,4 +285,22 @@ export function getArticlesByAuthor(authorKey: string): ArticleSummary[] {
 
 export function getAllSlugs(): string[] {
   return getAllArticles().map((a) => a.slug);
+}
+
+/**
+ * Annuaire slug → lien de guide (titre, URL, nom de catégorie), utilisé par
+ * le planificateur de rénovation pour ne jamais produire de lien cassé :
+ * seuls les articles réellement présents figurent dans la map.
+ */
+export function getGuideLinkMap(): Record<string, GuideLink> {
+  const map: Record<string, GuideLink> = {};
+  for (const a of getAllArticleSummaries()) {
+    map[a.slug] = {
+      slug: a.slug,
+      title: a.title,
+      href: `/${a.category}/${a.slug}`,
+      categoryName: getCategory(a.category)?.name ?? a.category,
+    };
+  }
+  return map;
 }

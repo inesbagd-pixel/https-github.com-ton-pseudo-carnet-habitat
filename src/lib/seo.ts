@@ -204,6 +204,59 @@ export function personSchema(author: {
   };
 }
 
+export function webApplicationSchema({
+  name,
+  description,
+  path,
+}: {
+  name: string;
+  description: string;
+  path: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name,
+    description,
+    url: absoluteUrl(path),
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Tous (navigateur web)",
+    browserRequirements: "Requiert JavaScript.",
+    inLanguage: "fr-FR",
+    isAccessibleForFree: true,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "EUR",
+    },
+    publisher: { "@id": absoluteUrl("/#organization") },
+  };
+}
+
+export function howToSchema({
+  name,
+  description,
+  steps,
+}: {
+  name: string;
+  description: string;
+  steps: { name: string; text: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name,
+    description,
+    inLanguage: "fr-FR",
+    step: steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
+  };
+}
+
 export function collectionPageSchema({
   name,
   description,

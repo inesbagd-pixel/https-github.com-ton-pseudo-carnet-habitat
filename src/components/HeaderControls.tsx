@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import type { NavItem } from "@/lib/nav";
 import type { SearchRecord } from "@/lib/search-core";
 import { SearchDialog } from "@/components/search/SearchDialog";
+import { Portal } from "@/components/Portal";
 import { SearchIcon, MenuIcon, CloseIcon } from "@/components/icons";
 
 interface Props {
@@ -51,7 +52,7 @@ export function HeaderControls({ navItems, index }: Props) {
         <button
           type="button"
           onClick={() => setMenuOpen((v) => !v)}
-          className="inline-flex items-center justify-center rounded-full p-2 text-ink transition-colors hover:bg-bg-muted md:hidden"
+          className="inline-flex items-center justify-center rounded-full p-2 text-ink transition-colors hover:bg-bg-muted lg:hidden"
           aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={menuOpen}
           aria-controls="menu-mobile"
@@ -60,9 +61,11 @@ export function HeaderControls({ navItems, index }: Props) {
         </button>
       </div>
 
-      {/* Drawer mobile */}
+      {/* Drawer mobile — rendu au niveau du body pour échapper au
+          backdrop-filter du header (qui contraindrait le `position: fixed`). */}
       {menuOpen && (
-        <div className="fixed inset-0 z-[80] md:hidden" id="menu-mobile">
+        <Portal>
+          <div className="fixed inset-0 z-[80] lg:hidden" id="menu-mobile">
           <button
             type="button"
             aria-label="Fermer le menu"
@@ -112,7 +115,8 @@ export function HeaderControls({ navItems, index }: Props) {
               article
             </button>
           </nav>
-        </div>
+          </div>
+        </Portal>
       )}
 
       <SearchDialog

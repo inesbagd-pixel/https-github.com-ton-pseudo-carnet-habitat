@@ -8,12 +8,12 @@ export function SiteHeader() {
   const index = getSearchIndex();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-bg/85 backdrop-blur-md">
+    <header className="no-print sticky top-0 z-50 border-b border-line bg-bg/85 backdrop-blur-md">
       <div className="container-editorial">
         <div className="flex h-16 items-center justify-between gap-4">
           <Logo />
 
-          <nav aria-label="Navigation principale" className="hidden md:block">
+          <nav aria-label="Navigation principale" className="hidden lg:block">
             <ul className="flex items-center gap-1">
               {mainNav.map((item) => (
                 <li key={item.href}>

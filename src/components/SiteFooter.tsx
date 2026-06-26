@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
 import { siteConfig } from "@/lib/site";
 import { categoryNav, footerNav } from "@/lib/nav";
 import {
@@ -24,11 +25,8 @@ export function SiteFooter() {
         <div className="grid gap-10 md:grid-cols-12">
           {/* Marque */}
           <div className="md:col-span-5">
-            <p className="font-serif text-lg">
-              <span className="font-semibold text-ink">Carnet</span>{" "}
-              <span className="italic text-sage-dark">Habitat</span>
-            </p>
-            <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink-soft">
+            <Logo />
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-soft">
               {siteConfig.tagline} Un magazine indépendant pour mieux entretenir,
               rénover et aménager votre logement.
             </p>

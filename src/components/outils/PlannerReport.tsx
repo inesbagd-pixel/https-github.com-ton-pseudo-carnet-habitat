@@ -335,7 +335,7 @@ export function PlannerReport({ plan, input, guides, onEdit, onRestart }: Props)
       )}
 
       {/* Bloc de partage — bien visible */}
-      <div className="no-print mt-12 rounded-2xl border border-sage/40 bg-sage-soft/40 p-6 sm:p-8">
+      <div className="no-print mt-12 rounded-2xl border border-line bg-bg-muted p-6 sm:p-8">
         <div className="flex flex-col gap-1 text-center sm:text-left">
           <h3 className="font-serif text-xl font-semibold text-ink">
             Gardez ce plan ou partagez-le

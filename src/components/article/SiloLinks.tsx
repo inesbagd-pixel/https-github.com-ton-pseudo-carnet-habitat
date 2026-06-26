@@ -8,7 +8,7 @@ import { ArrowRightIcon, ChevronRightIcon } from "@/components/icons";
  */
 export function PillarBanner({ pillar }: { pillar: ArticleSummary }) {
   return (
-    <aside className="my-10 rounded-xl border border-sage/40 bg-sage-soft/50 p-5 sm:p-6">
+    <aside className="my-10 rounded-xl border border-line bg-bg-muted p-5 sm:p-6">
       <p className="eyebrow text-[0.65rem]">Dossier complet</p>
       <p className="mt-2 font-serif text-lg font-medium text-ink">
         Cet article fait partie de notre guide de référence.

@@ -156,7 +156,7 @@ export default function HomePage() {
       </section>
 
       {/* ----------------------------- À PROPOS ------------------------- */}
-      <section className="border-t border-line bg-sage-soft/40">
+      <section className="border-t border-line bg-bg-muted">
         <div className="container-editorial grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-[1.2fr_1fr]">
           <div>
             <span className="eyebrow">À propos</span>

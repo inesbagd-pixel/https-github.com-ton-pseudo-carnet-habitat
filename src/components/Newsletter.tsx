@@ -64,7 +64,7 @@ export function Newsletter({
       className={
         isInline
           ? "rounded-xl border border-line bg-bg-muted p-6 sm:p-8"
-          : "overflow-hidden rounded-2xl bg-sage-soft px-6 py-12 sm:px-12 sm:py-16"
+          : "overflow-hidden rounded-2xl border border-line bg-bg-muted px-6 py-12 sm:px-12 sm:py-16"
       }
     >
       <div className={isInline ? "" : "mx-auto max-w-2xl text-center"}>

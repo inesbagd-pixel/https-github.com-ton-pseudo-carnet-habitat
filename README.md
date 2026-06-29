@@ -59,7 +59,7 @@ npm run lint
 .
 ├── content/
 │   └── articles/                 # 20 articles MDX (1 fichier = 1 article)
-│       └── comment-reduire-humidite-cave.mdx
+│       └── traiter-cave-humide.mdx
 ├── public/                       # (assets statiques éventuels)
 ├── src/
 │   ├── app/

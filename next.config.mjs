@@ -28,6 +28,17 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        // Article « cave humide » consolidé : l'ancien guide court a été
+        // fusionné dans le guide complet « traiter-cave-humide ».
+        source: "/maison/comment-reduire-humidite-cave",
+        destination: "/maison/traiter-cave-humide",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

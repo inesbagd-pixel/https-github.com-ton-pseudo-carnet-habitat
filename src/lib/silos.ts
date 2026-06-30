@@ -55,7 +55,7 @@ export const silos: Silo[] = [
       "eliminer-moisissures-murs",
       "remontees-capillaires-traitement",
       "ameliorer-qualite-air-interieur",
-      "comment-reduire-humidite-cave",
+      "traiter-cave-humide",
       "isolation-ventilation-humidite",
     ],
   },

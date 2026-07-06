@@ -37,6 +37,24 @@ const nextConfig = {
         destination: "/maison/traiter-cave-humide",
         permanent: true,
       },
+      // Cohérence des rubriques : trois articles ont été reclassés pour
+      // correspondre à la rubrique de leur silo (isolation → Travaux,
+      // maison saine → Maison). Les anciennes URL redirigent en 301.
+      {
+        source: "/energie/isoler-combles-perdus",
+        destination: "/travaux/isoler-combles-perdus",
+        permanent: true,
+      },
+      {
+        source: "/energie/isolants-biosources",
+        destination: "/travaux/isolants-biosources",
+        permanent: true,
+      },
+      {
+        source: "/energie/taux-humidite-ideal-maison",
+        destination: "/maison/taux-humidite-ideal-maison",
+        permanent: true,
+      },
     ];
   },
 };

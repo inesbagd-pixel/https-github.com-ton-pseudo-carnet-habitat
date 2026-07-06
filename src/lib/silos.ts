@@ -77,7 +77,17 @@ export const silos: Silo[] = [
   {
     pillar: "guide-chauffage-maison",
     category: "energie",
+    // Cluster « équipements de chauffage » : générateurs (PAC, bois) et
+    // production d'eau chaude, adossés aux leviers régulation / isolation.
     articles: [
+      "pompe-a-chaleur-air-eau",
+      "pompe-a-chaleur-air-air",
+      "poele-a-granules",
+      "poele-bois-ou-granules",
+      "chauffe-eau-thermodynamique",
+      "remplacer-vieille-chaudiere",
+      "chaudiere-gaz-condensation",
+      "radiateurs-inertie",
       "reduire-consommation-chauffage",
       "bien-choisir-thermostat-connecte",
       "isoler-combles-perdus",

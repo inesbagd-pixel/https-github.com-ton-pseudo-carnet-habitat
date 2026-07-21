@@ -64,6 +64,9 @@ export const metadata: Metadata = {
     "max-snippet": -1,
   },
   category: "Habitat",
+  other: {
+    linkavista: "b7576b53c3c320d8e761443d99170349b000ac81",
+  },
 };
 
 export const viewport: Viewport = {
